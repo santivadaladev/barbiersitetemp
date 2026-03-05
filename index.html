@@ -184,7 +184,7 @@
 
     .hero-right {
       position: relative;
-      overflow: hidden;
+      overflow: visible;
     }
 
     .hero-right img {
@@ -194,6 +194,7 @@
       filter: grayscale(20%) contrast(1.05);
       transform: scale(1.05);
       animation: slowZoom 8s ease forwards;
+      overflow: hidden;
     }
 
     .hero-right::after {
@@ -202,19 +203,13 @@
       inset: 0;
       background: linear-gradient(to right, var(--dark) 0%, transparent 30%),
                   linear-gradient(to top, var(--dark) 0%, transparent 30%);
+      pointer-events: none;
     }
 
     .hero-badge {
-      position: absolute;
-      bottom: 3rem;
-      left: -3rem;
-      z-index: 5;
       background: var(--dark3);
       border: 1px solid rgba(201,168,76,0.3);
-      padding: 1.5rem 2rem;
       text-align: center;
-      opacity: 0;
-      animation: fadeUp 0.8s 1.2s forwards;
     }
 
     .hero-badge .num {
@@ -225,6 +220,21 @@
     }
 
     .hero-badge p { font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.6; }
+
+    /* Desktop badge: absolute on hero-right image */
+    .hero-badge-desktop {
+      position: absolute;
+      bottom: 3rem;
+      left: 2rem;
+      z-index: 10;
+      padding: 1.5rem 2rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 1.2s forwards;
+      white-space: nowrap;
+    }
+
+    /* Mobile badge: hidden on desktop */
+    .hero-badge-mobile { display: none; }
 
     .hero-line {
       position: absolute;
@@ -932,7 +942,19 @@
       .hero-right::after {
         background: linear-gradient(to top, var(--dark) 0%, rgba(13,13,13,0.5) 100%);
       }
-      .hero-badge { display: none; }
+      .hero-badge-desktop { display: none; }
+      .hero-badge-mobile {
+        display: inline-flex;
+        align-items: center;
+        gap: 1rem;
+        margin-top: 2rem;
+        padding: 0.9rem 1.4rem;
+        text-align: left;
+        opacity: 1;
+        animation: none;
+      }
+      .hero-badge-mobile .num { font-size: 2.2rem; }
+      .hero-badge-mobile p { font-size: 0.75rem; letter-spacing: 0.15em; opacity: 0.7; line-height: 1.4; }
       .hero-title { font-size: clamp(3rem, 12vw, 5rem); }
       .hero-sub { max-width: 100%; font-size: 1.05rem; }
       .hero-actions { flex-direction: column; align-items: flex-start; gap: 1.2rem; }
@@ -945,7 +967,7 @@
         gap: 3rem;
       }
       .about-img-wrap img { height: 320px; }
-      .about-gold-tag { right: 0; bottom: -0.5rem; }
+      .about-gold-tag { right: 1rem; bottom: -0.5rem; font-size: 0.95rem; padding: 0.8rem 1.2rem; }
 
       .services { padding: 4rem 1.5rem; }
       .services-grid { grid-template-columns: 1fr; gap: 2px; }
@@ -1034,12 +1056,17 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-left">
-    <p class="hero-eyebrow">Dal 2004 · Milano</p>
+    <p class="hero-eyebrow">20 Anni di Eccellenza · Milano</p>
     <h1 class="hero-title">L'arte<br>del <em>vero</em><br>barbiere</h1>
     <p class="hero-sub">Non è solo un taglio di capelli. È un rituale. Un momento tutto tuo. Entra e lascia che i nostri maestri ti trasformino.</p>
     <div class="hero-actions">
       <a href="#prenota" class="btn-primary">Prenota il tuo posto</a>
       <a href="#servizi" class="btn-ghost">Scopri i servizi</a>
+    </div>
+    <!-- Badge mobile only (hidden on desktop) -->
+    <div class="hero-badge hero-badge-mobile">
+      <div class="num">20+</div>
+      <p>Anni di<br>esperienza</p>
     </div>
   </div>
   <div class="hero-right">
@@ -1047,7 +1074,8 @@
       src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=1200&q=85"
       alt="Barbiere al lavoro"
     />
-    <div class="hero-badge">
+    <!-- Badge desktop only (hidden on mobile) -->
+    <div class="hero-badge hero-badge-desktop">
       <div class="num">20+</div>
       <p>Anni di<br>esperienza</p>
     </div>
@@ -1080,14 +1108,14 @@
       src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=900&q=85"
       alt="Interno barbershop"
     />
-    <div class="about-gold-tag">Milano · Est. 2004</div>
+    <div class="about-gold-tag">20 Anni · Est. 2004</div>
   </div>
   <div class="about-content reveal">
     <p class="section-label">La nostra storia</p>
     <div class="divider"></div>
-    <h2 class="section-title">Artigiani del <em>look</em> dal 2004</h2>
+    <h2 class="section-title">Artigiani del <em>look</em><br>da 20 anni</h2>
     <p class="section-body">Barber King nasce dalla passione di Marco Ferretti per l'arte antica della rasatura. Un luogo dove la tradizione incontra il contemporaneo, dove ogni cliente è un ospite e ogni taglio è un'opera d'arte.</p>
-    <p class="section-body">Utilizziamo solo prodotti premium — dai sieri per la barba agli oli per capelli — perché crediamo che il lusso non sia un optional, ma uno standard.</p>
+    <p class="section-body">Con oltre <strong style="color:var(--gold)">20 anni di esperienza</strong>, utilizziamo solo prodotti premium — dai sieri per la barba agli oli per capelli — perché crediamo che il lusso non sia un optional, ma uno standard.</p>
     <a href="#servizi" class="btn-primary">I nostri servizi</a>
   </div>
 </section>
